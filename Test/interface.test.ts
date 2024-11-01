@@ -1,5 +1,6 @@
 import { Dosen } from "../src/interface";
 import { Developer, Manager } from "../src/interfaceExtends";
+import { Person } from "../src/person";
 
 describe("Interface", function () {
   // type interface
@@ -75,11 +76,6 @@ describe("Interface", function () {
 
   // Function di dalam Interface
   it("should support function in interface", function () {
-    interface Person {
-      name: string;
-      sayHi(name: string): string;
-    }
-
     const person: Person = {
       name: "Gifari Fajar Maulana",
       sayHi: function (name: string): string {
@@ -89,5 +85,36 @@ describe("Interface", function () {
 
     console.info(person.sayHi("Sulika"));
     console.info(person);
+  });
+
+  // Type Intersection (menggabungkan interface)
+  it("should support intersection types", function () {
+    interface HasName {
+      name: string;
+    }
+
+    interface HasNim {
+      nim: number;
+    }
+
+    type DataMhs = HasNim & HasName;
+
+    const dataMhs: DataMhs = {
+      nim: 1231731,
+      name: "Gifari Fajar Maulana",
+    };
+
+    console.info(dataMhs);
+  });
+
+  // Type Assertions (conversi type data)
+  it("should support type assertions", function () {
+    const person: any = {
+      name: "Gifari",
+      age: 20,
+    };
+
+    const person2: Person = person as Person;
+    console.info(person2);
   });
 });
